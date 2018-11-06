@@ -24,12 +24,22 @@ Lab:
 
 ### Wednesday
 
+Machine learning: 
+
+Statistics: 
+
 
 ### Thursday
 
+ML lab:
+
+Research methods:
 
 ### Friday
 
+Statistics:
+
+Group and project allocation:
 
 
 ## Week 2
