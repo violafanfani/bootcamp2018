@@ -33,7 +33,7 @@ Statistics:
 
 ML lab:
 
-Research methods:
+Research methods: https://www.overleaf.com/project/5bf1e2debf1e7709713c7e9d
 
 ### Friday
 
