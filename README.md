@@ -17,7 +17,7 @@ Python lab: https://www.overleaf.com/project/5be16887776d6d6b30f0b6da
 
 ### Tuesday
 
-Numpy, scipy, pandas, seaborn: https://www.overleaf.com/5886448448fwwnjrnfszsy
+Scientific programming in Python: https://www.overleaf.com/5886448448fwwnjrnfszsy
 
 Lab: https://www.overleaf.com/project/5bf1dfbebf1e7709713c7c96
 
