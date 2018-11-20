@@ -41,5 +41,7 @@ Statistics:
 
 Group and project allocation:
 
+How to write a research paper: 
+
 
 ## Week 2
