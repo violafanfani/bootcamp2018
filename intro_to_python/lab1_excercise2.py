@@ -111,16 +111,6 @@ print(university.values())
 
 """
 Exercise 1
-Martin Jones just arrived at the hospital and someone has collected his data as below.
-You are required to extract the following information:
-- name of the patient
-- family name of the patient
-- his year of birth
-- his BMI (calculated as weight^2[kg]/height[cm])
-
 """
-fill_name_patient="Martin Jones"
-age_patient=25
-today_date="05/11/2018"
-weight_patient=90.8
-height_patient=180
+
+
