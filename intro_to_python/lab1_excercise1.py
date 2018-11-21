@@ -1,24 +1,31 @@
 ### WELCOME TO THE FIRST LAB ###
 
-## Data Type
+## Data Types
 
 """
-Examples 1: a few operations with numbers
+Examples 1: a few operations with numbers and strings
 """
 
 # A school has 3 classrooms, each of them can contain 20 students.
 # How many students can be enrolled in the school?
 
-n_classrooms=3  # What data type is n_classrooms? Try print(type(n_classrooms))
-room_seats=20
-max_total_students=3*20  # How many? print(max_total_students)
+n_classrooms=3  # What data type is n_classrooms?
+print(type(n_classrooms))
 
-# At the beginning of the year there are 56 students enrolled:
-enrolled=56
+room_seats=20
+max_total_students=3*20  # How many? 
+print("Max number of students: %d" %max_total_students)
+
+# At the beginning of the year there are 56 students enrolled.
 # How many other application can the school accept?
+enrolled=56
 remaining=max_total_students - enrolled
+
 # How many students in each class?
-print("Each class is going to have %d students and %d of them are remaining" %(enrolled // n_classrooms,enrolled % n_classrooms))
+integer_division=enrolled // n_classrooms
+remainder=enrolled % n_classrooms
+print("Each class is going to have %d students and %d of them are remaining to assign to a class" %(integer_division,remainder))
+
 # The first application is from 
 app="Juana Martinez, born in Madrid, on the 16/05/2000"
 # What are her name, birth place and DOB?
