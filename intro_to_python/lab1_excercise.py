@@ -3,7 +3,7 @@
 ## Data Type
 
 """
-Examples 1:
+Examples 1: a few operations with numbers
 """
 
 # A school has 3 classrooms, each of them can contain 20 students.
