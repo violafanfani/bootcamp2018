@@ -21,6 +21,7 @@ Scientific programming in Python: https://www.overleaf.com/5886448448fwwnjrnfszs
 
 Lab: https://www.overleaf.com/project/5bf1dfbebf1e7709713c7c96
 
+Other resources: https://www.analyticsvidhya.com/blog/2017/02/top-28-cheat-sheets-for-machine-learning-data-science-probability-sql-big-data/
 
 ### Wednesday
 
