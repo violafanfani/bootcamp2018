@@ -1,5 +1,11 @@
-### WELCOME TO THE FIRST LAB ###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+@author: Viola Fanfani
 
+### WELCOME TO THE FIRST LAB ####
+
+"""
 ## Data Types
 #%%
 """
