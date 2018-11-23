@@ -1,0 +1,980 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{intro\_to\_scientific\_programming}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Scientific Programming in Python: Notebook
+1}\label{scientific-programming-in-python-notebook-1}
+
+\subsubsection{CSEE Bootcamp 2018}\label{csee-bootcamp-2018}
+
+\paragraph{Viola Fanfani \& Ana Matran
+Fernandez}\label{viola-fanfani-ana-matran-fernandez}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \subsection{Numpy}\label{numpy}
+
+    \paragraph{Creating and manipulating
+arrays}\label{creating-and-manipulating-arrays}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} create arrays with a specified data type}
+        
+        \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+        
+        \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{complex64}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+        
+        \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1. 2. 3.]
+float32
+[1.+2.j 3.-4.j]
+complex64
+[False  True  True]
+bool
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{arr\PYZus{}range2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr\PYZus{}range2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} Retrieving information on the array}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}range2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}range2}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dim:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}range2}\PY{o}{.}\PY{n}{ndim}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{itemsize:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}range2}\PY{o}{.}\PY{n}{itemsize}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 1 2 3 4 5 6 7 8 9]
+shape: (10,)
+dtype: int64
+dim: 1
+itemsize: 8
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{arr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)} \PY{c+c1}{\PYZsh{}np.arange(start,stop,pace)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} np.linspace(start, stop, num\PYZus{}of\PYZus{}elements, endpoint=True, retstep=False) }
+        \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0  5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{arr\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr\PYZus{}2d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1.5 2.  3. ]
+ [4.  5.  6. ]]
+[1.5 2.  3. ]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Slicing }
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{arr\PYZus{}2d[0,0] :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}2d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{arr\PYZus{}2d[0,:] : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}2d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{arr\PYZus{}2d[:,0] :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}2d}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr\PYZus{}2d}\PY{p}{[}\PY{n}{arr\PYZus{}2d}\PY{o}{\PYZgt{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+arr\_2d[0,0] : 1.5
+arr\_2d[0,:] :  [1.5 2.  3. ]
+arr\_2d[:,0] : [1.5 4. ]
+[3. 4. 5. 6.]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Other types of arrays}
+         
+         \PY{n}{zeros} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{zeros}\PY{p}{)}
+         
+         \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ones}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ones}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+[[1. 1. 1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1. 1. 1.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} random values arrays}
+         \PY{n}{randn}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{randn}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} linear algebra arrays }
+         \PY{n}{eye}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{eye}\PY{p}{)}
+         
+         \PY{n}{diagonal}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{diagonal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-4.33224717e-01 -1.57158106e+00 -2.02164132e+00 -7.13527600e-02
+  -2.00907713e+00  5.11185680e-01 -8.98316090e-01 -1.04539719e+00
+  -2.95129998e-01 -7.03074517e-02  7.36769076e-01  3.34646291e-01
+  -9.77951808e-02 -8.77942636e-01  1.05874234e-01  1.22519484e+00
+   4.19618662e-01 -3.31586496e-01  1.33012725e+00  1.70075384e+00
+   6.87527285e-01 -1.97673751e+00 -1.20923588e-01 -3.04570287e-01
+   1.70835824e+00  1.50301465e-01  1.08657718e+00  5.16454220e-01
+   1.03053886e+00  6.07473350e-01 -1.10077016e-01  1.25735535e+00
+   1.56602292e+00 -1.24446463e+00  1.75358892e+00  1.97197568e-01
+   5.09613716e-01 -2.13776329e-01  1.32397890e+00  6.18682598e-01
+   1.38089521e+00 -1.43154960e+00  7.45881709e-01  1.45047946e+00
+  -1.31768721e+00 -1.01477852e-01 -5.58154285e-01  2.18959997e-01
+   4.44654659e-01 -6.35462148e-01  6.23439793e-01  8.83635988e-01
+  -7.88872821e-01  7.64162141e-01 -1.66570533e+00  1.17667710e+00
+  -8.09005748e-01  6.22830779e-01  1.11867920e+00 -7.00186913e-01
+   1.03851500e+00 -3.10709856e-02  1.27818281e+00  5.83421540e-01
+  -5.19904705e-01 -2.47215108e-01 -2.43400109e+00 -6.48986511e-01
+  -4.51874737e-01 -1.46070559e+00  4.96095404e-01  1.49005172e+00
+  -5.16003882e-03  9.02957018e-02 -4.07712474e-01 -1.23455709e-01
+   8.50488614e-01  3.75987825e-01  3.78124423e-01  4.53736200e-02
+  -8.13074921e-01 -3.16175391e-01 -3.68216170e-01  1.59655463e-01
+  -4.58179389e-02 -1.52403864e+00  9.21138459e-01 -1.40324255e+00
+   3.47124422e-01 -5.39191742e-01  3.50400118e-01 -6.15100344e-01
+  -4.22550792e-01  1.86167439e-01 -7.27513211e-01 -1.49482963e-01
+   1.44736380e+00 -8.14187220e-01 -6.82505796e-01 -3.93782817e-01
+  -7.89339736e-01 -1.22973045e+00 -1.01841911e+00 -1.96231487e+00
+   2.40058151e-01  7.75851609e-01  9.11356675e-01  3.89118287e-01
+  -2.16709336e+00 -5.46576093e-01  2.17772006e-02  1.28196860e+00
+  -1.29443286e+00 -9.59444461e-02 -1.43752972e+00  2.57048620e-01
+   2.18430034e+00 -4.73585354e-01  4.60471577e-01 -9.71143525e-01
+  -3.22283911e-01 -1.82660300e+00 -8.73927979e-01 -2.60042363e-01
+   1.66111448e+00 -1.42907578e-01 -2.67631911e-01  9.60237737e-01
+  -1.82431201e+00  5.91048268e-01 -2.46161009e-01 -1.34618543e+00
+   2.19495963e+00 -5.66643121e-01  6.11146668e-01 -9.57137848e-01
+   1.69541292e+00 -6.19207218e-02 -1.66138777e+00 -3.54112372e-01
+   6.99716133e-01  4.05042020e-01 -1.19658724e+00 -7.44700114e-01
+  -1.10569673e-01 -1.67854828e+00 -3.72101109e-01  5.56120940e-01
+   1.86176587e+00 -4.29373493e-01 -2.69399778e+00 -1.03167425e+00
+  -6.34763691e-01 -6.29136948e-01 -1.34149167e-01  1.51989823e+00
+  -3.39247605e-01  3.21107632e+00 -9.54946682e-02  3.30768426e-01
+  -2.03731729e-01  1.43606971e-01  1.23421423e+00  1.80789590e-01
+   2.61209663e+00  1.37124602e+00  4.65424969e-01  3.41618853e-01
+   1.48528596e+00  1.02234032e+00 -3.09356561e-02 -1.89533547e-01
+  -8.61766965e-01 -8.43663796e-01 -7.18894707e-01  8.31103911e-01
+  -8.55929005e-01  1.53925335e-01 -1.37364682e+00  8.80919382e-01
+  -5.28474010e-01 -4.73143643e-02  3.65819584e-01  8.00219733e-01
+   1.02121539e+00  1.19123791e+00 -7.92535329e-01  1.19333958e+00
+   1.57647478e-01  8.98813363e-01  2.29981687e+00  1.06081922e-02
+   1.54417549e+00  1.25151539e+00 -4.48264838e-01 -3.93486059e-01
+  -4.62852295e-01 -2.44444406e+00  3.07338167e-02 -1.31952245e+00
+   5.53313507e-01  3.31807972e-02 -7.78106054e-01 -1.91102337e+00
+   1.71872737e-01  6.70662796e-01  8.27806825e-02  6.96427725e-01
+  -1.41071462e+00  1.19487347e+00 -1.14785674e+00 -1.78134589e-01
+  -4.98084929e-02  7.58391325e-01 -6.20176882e-01  1.04378961e+00
+  -3.28246336e-01  1.86653830e+00  7.70068960e-01 -2.42896909e+00
+   1.13425357e-01  6.27862271e-01  1.94644573e-01  9.19514054e-01
+   2.58748949e-01  1.55472276e+00 -3.30123403e-01  8.40272996e-01
+   3.00551562e-01 -1.09143740e+00 -1.53346756e+00  1.48945147e-01
+  -2.40574150e+00  5.15609701e-01  4.15750800e-01  6.56438002e-01
+   4.13849446e-01  2.17574399e-01 -7.20321897e-01 -1.34090059e+00
+   1.66922362e-01  8.53624260e-01 -5.66538356e-01 -1.46467772e+00
+   1.98236236e-01  7.76436467e-01  6.25441352e-01  4.66007913e-01
+   7.43798462e-01  8.30700796e-01  1.47624844e+00 -6.82635215e-01
+  -3.06495369e+00  1.05405749e-01  8.05448150e-01 -4.92098387e-01
+  -4.89084421e-01 -1.62108975e+00  1.47098126e+00 -6.30223176e-02
+  -3.88022452e-01 -6.75915926e-01 -6.25644295e-01  1.25472683e+00
+  -1.57417757e-01 -7.33249674e-01  2.12943027e+00  9.20363137e-02
+   1.60389139e+00  6.67518819e-01 -4.78887194e-01  3.02117630e-01
+   6.94842437e-02 -4.30307790e-01 -1.13628914e+00  4.48208509e-01
+  -8.17519448e-01 -1.14696309e+00 -2.07443563e-01 -5.14549467e-01
+  -6.73016026e-01  3.86198464e-01  3.09912540e-01  7.26446974e-01
+  -1.58080077e+00  6.88561354e-01  6.68617841e-01  9.84417233e-01
+   3.01839625e-02 -3.22467070e+00 -2.00903141e+00 -8.96126373e-01
+  -2.38989443e+00 -1.02187563e+00  3.87151832e-01 -1.60227338e+00
+  -3.87998862e-01  7.97163055e-01 -8.87486705e-01 -2.86450418e-01
+   1.94553996e-01  6.92033681e-01  1.25291420e+00 -1.24368068e+00
+   8.44914169e-01 -4.51202595e-01  1.17203386e+00  6.17957286e-01
+  -3.35880060e-01  1.53804548e+00  1.73437634e-02 -1.19257898e+00
+   6.93113335e-02 -1.07004572e+00  7.57572714e-01 -6.59128634e-01
+   1.28541367e+00 -1.01390996e-02 -1.63218669e+00 -1.28897064e+00
+   6.73506408e-01  1.66581287e-02 -9.56816483e-01 -1.27404908e+00
+  -1.74743326e+00  1.84526561e+00  7.21880672e-01  1.24203806e+00
+  -1.06908674e-01 -4.00226108e-01 -6.54928370e-01  2.30539581e+00
+   1.03622809e+00  1.78221336e+00  1.27740448e+00 -1.98762197e+00
+   4.51295767e-01  2.28435407e-01 -9.27445660e-01  9.23028999e-02
+   2.51130094e-01  4.94549107e-01  3.39171959e-01  9.81394680e-02
+  -7.80723454e-01  1.71989341e-01  4.50193314e-01 -2.21942686e+00
+  -9.01745265e-02  1.74831087e+00  1.20141391e+00  4.43897531e-01
+  -4.52128284e-01 -7.59038739e-01 -2.11698250e-01  1.00508497e-02
+   2.56296146e-01 -1.20687737e+00  7.39442637e-01  2.76792145e-01
+   7.05661263e-01  1.90057666e-01 -2.45199072e-01 -1.21737074e+00
+   3.99060631e-01 -1.12535350e+00  7.97269977e-01 -8.20908090e-01
+  -1.64122157e+00  1.79460594e+00  1.60726713e+00 -3.37113786e-01
+  -1.81239665e+00 -8.45419866e-01  8.80480736e-01 -8.26285123e-01
+   1.58623300e+00 -6.08844763e-01  3.13784002e-01  4.13689791e-01
+   3.34828917e-01  1.37517025e+00  1.32552355e+00  1.19631700e+00
+   2.22463136e-02  2.43360618e-01 -6.26534183e-01 -1.18292797e+00
+  -2.48805798e+00 -1.10033168e+00  2.16880392e-01  7.32581819e-01
+  -9.97794026e-01  1.47730432e+00 -2.07897292e-01  1.73251536e+00
+   2.23664700e-01  6.92311794e-02 -2.30760198e-01  2.79390223e-01
+  -4.06291813e-01 -5.24308166e-01 -1.77704171e+00 -4.80306432e-01
+   3.10330281e-01 -2.28362642e-01 -7.20354500e-01  6.39584978e-01
+  -8.96063413e-02 -8.09089584e-01  1.48688230e+00  8.76274580e-01
+   7.11272892e-01  1.24376246e+00  2.41552936e-01  4.84916349e-01
+  -3.06577921e-01 -7.90360986e-01 -9.61121842e-01  2.17759054e+00
+  -1.12568965e+00  1.55183495e+00  1.03552331e+00 -6.34960557e-01
+  -1.00533342e-01  6.49853705e-01  3.70845142e-01 -4.08699083e+00
+  -9.52829053e-01 -1.76837853e+00 -2.16146879e-01  2.18078431e-01
+   9.69534419e-01 -2.36803495e+00  5.65799311e-02 -1.19509352e+00
+  -2.66619855e-01 -5.42570816e-01  1.43278273e-02 -1.10545485e+00
+   2.04060984e+00  1.78036546e+00  1.37281067e-01  1.24719123e-02
+   2.80107119e-01 -9.26133984e-01 -1.19383178e+00  8.39171650e-01
+  -9.52184688e-01  1.33553109e+00 -3.27392255e-01 -6.45256298e-01
+   6.25342298e-01 -1.60300911e-02 -9.09445649e-01  6.70005406e-02
+   8.16373634e-01  5.97438436e-01  2.69680839e-02 -1.84347724e+00
+  -7.09659793e-01 -9.97101360e-02  8.28109205e-01  5.82359017e-01
+  -6.37250775e-01 -2.21633414e-01  1.12387927e+00  6.42090129e-01
+   8.90398665e-01 -1.08703828e+00 -3.78721354e-01 -7.98443914e-02
+  -6.91342499e-01  2.55408555e+00  1.02412090e+00 -2.26141150e-02
+  -5.46511503e-01 -3.31584185e-01  7.90678782e-02 -4.72507397e-01
+  -2.81351138e-01 -3.98837601e-02  9.47514332e-01  9.79505720e-01
+  -1.73507805e-01  1.06953169e+00 -4.46276354e-01 -1.20242225e-01
+   7.64791300e-01  9.35109393e-01  6.19259117e-01 -1.99049077e+00
+   9.06437831e-01 -1.12799963e-01  1.39983907e+00 -9.70813154e-02
+  -8.10446579e-01  2.08713949e+00  8.11591679e-02  1.17031497e-01
+   5.95300284e-01  3.76039332e-01  1.14385022e+00 -1.13021741e+00
+  -1.49834511e+00  1.02307690e-01 -3.95120222e-01 -1.45400714e+00
+   5.54759290e-02  1.37252518e+00  1.39342237e+00 -3.78154378e-01
+   5.58498396e-01 -8.16753687e-02  3.01916792e-01 -1.63601440e+00
+  -1.87028760e+00  5.63547307e-02  3.54941030e-01 -8.91488913e-01
+   8.27149003e-01  1.52183566e+00 -1.78801350e-01  1.04788634e+00
+   8.01126196e-01  2.81188536e-01  5.11918839e-02  4.62542515e-01
+  -6.87567933e-01 -1.01834633e-01 -3.00564685e-01 -1.20035752e+00
+  -5.97431401e-02 -1.33391114e-01  2.78224892e+00 -7.28517956e-01
+  -1.38415696e+00 -9.51799241e-01 -2.69253031e-01  1.03065144e+00
+  -3.32412904e-01  1.07275496e+00  8.02045343e-01 -2.79897307e-01
+  -4.07059594e-01 -1.83640845e-01  8.16210194e-02 -1.42987434e-01
+  -2.09189498e-01  1.58063038e+00  2.14244352e+00  8.90434001e-01
+  -4.66934940e-01  7.26392160e-01  5.42749835e-01 -1.11947393e+00
+   4.22418568e-01 -6.62820482e-01 -1.40712437e+00  8.53952599e-01
+   2.10877025e-01  2.97142744e-01 -2.03522332e+00 -2.00385430e+00
+  -4.24964258e-01  7.57938956e-01  2.60779343e-01  2.27168848e-01
+  -1.42561651e-01 -1.73379237e+00 -1.14450256e+00  1.03771672e+00
+  -2.14280985e+00 -1.10320567e+00  3.08456098e-01 -9.65036859e-01
+   1.59343877e-01 -1.28552628e+00  1.68070635e+00 -7.16752749e-01
+   7.27229550e-01  6.50096157e-01 -6.15136492e-01  7.78658004e-01
+  -4.77226234e-01 -1.99180246e+00  8.39114219e-01  7.48474812e-02
+   1.81668610e-01 -5.54817203e-01  2.20051463e-01 -9.01567896e-01
+  -1.06945425e+00  6.01483716e-01  9.35833745e-01 -2.33355824e-01
+  -5.93849687e-01  2.06409727e+00 -7.30501599e-01 -1.31722361e-01
+   8.45851796e-01 -9.12097243e-01 -3.01490406e-01  8.39721787e-01
+  -9.44865000e-01 -1.19878904e+00 -1.63557896e+00 -5.55808952e-01
+   6.47392517e-01 -3.30835318e-01 -5.44181148e-01 -1.36637444e-01
+   1.83129546e-01  4.63757736e-01 -1.01557988e+00 -1.20695393e+00
+  -6.47831833e-01  1.51191142e-01 -1.17396525e+00  8.21674906e-01
+  -1.44793098e-01 -5.48611138e-01 -1.49820826e+00  5.43694440e-01
+   1.99214911e-01 -7.42386225e-01  9.02679250e-01  1.61597073e+00
+   1.77449629e+00 -8.38502034e-02  3.68353640e-02 -6.63782420e-01
+   2.14000771e+00 -2.30221629e-01 -1.41724018e+00  1.72259337e+00
+  -2.00410121e-02 -1.24897564e+00 -1.46319445e-02  1.05372244e-01
+  -8.95053150e-01 -1.75723636e+00 -2.50510729e+00  1.46477046e-01
+  -4.97009399e-01  1.76275618e+00 -8.08880182e-01 -5.07261253e-01
+   2.49049290e-01 -1.60343453e+00  2.19820458e+00  2.52014944e+00
+  -3.95741623e-01  3.52267956e-01 -2.26839261e-02  4.06207041e-03
+  -2.78610492e+00  1.07953533e+00 -6.93380231e-01  7.90169178e-01
+   7.81469651e-01  2.01422135e+00  3.51311113e-02  1.50918114e+00
+   9.99174153e-01 -3.20390773e-01 -6.70096638e-02 -8.62391524e-02
+   4.86883375e-01 -5.90630702e-02  1.94787789e+00 -9.03642070e-01
+   1.09359269e+00 -1.12815417e+00  1.57386470e+00 -9.06989985e-01
+  -1.82424561e+00 -9.87888775e-01  3.98670743e-01 -8.67354909e-02
+   4.19047194e-01  7.01902597e-01 -5.54873419e-01  1.43038717e+00
+  -2.52756671e-01 -1.35149608e+00  2.32315466e+00  1.49361529e+00
+  -2.49439062e-01  8.02512614e-01  3.54159517e-01 -9.17559008e-01
+   1.76148912e+00  9.07120343e-03  2.11996304e-01 -7.99938503e-01
+  -1.40318461e+00  5.51610814e-01 -1.60683161e+00  1.99892923e-01
+  -1.12152816e+00 -1.26978800e+00 -8.33521245e-01 -5.23091114e-01
+  -4.89206360e-01 -3.09324191e-01 -3.99244743e-01  2.15798426e-01
+   1.04201944e+00  1.94896512e-01  1.43614968e+00 -9.73742620e-01
+   1.02867665e-01 -9.85636428e-01 -2.45951287e-01  2.00528476e+00
+  -2.06678736e+00 -9.68860274e-01  1.01224905e-01  6.32564788e-02
+  -4.08837887e-01  1.67360537e+00 -5.28803695e-01  4.10486160e-01
+   5.24653775e-01  4.94521356e-01  8.03055430e-01 -3.07200727e-01
+  -9.65257004e-01 -1.12295306e-01 -8.70407608e-01  3.24155584e-01
+   7.21302537e-01 -1.34065719e+00 -3.05170236e-01  4.95476336e-01
+  -1.04514919e-01 -1.94416134e-01  1.57296120e+00  2.38675199e-02
+   7.83718919e-01  8.55355672e-01  1.03286455e+00  1.10371233e+00
+  -1.61554788e+00 -8.32767424e-01 -1.09593725e-01 -8.57382959e-01
+   2.49663151e+00  2.13132288e+00  1.39153150e+00 -1.20847086e+00
+   1.68191041e+00 -8.27533329e-01 -1.48540178e+00  2.36448286e-02
+   3.89734100e-01 -8.24937462e-01 -1.96043266e+00 -1.63248500e+00
+  -1.95219681e-01 -9.71519874e-01 -1.34701469e+00  1.67516806e+00
+   1.70166488e+00  7.74631855e-01 -4.52401713e-01  1.34917161e-01
+   3.52969085e-01  1.37587602e+00 -1.81757248e+00 -1.40079589e+00
+   9.48569543e-01  1.78179271e+00 -2.95694510e-01 -1.88295963e-01
+   2.74741335e+00  1.22764473e+00  8.04305781e-02 -3.67039728e+00
+   1.41910303e+00 -4.74343396e-03  2.24580522e+00  2.06477764e-01
+  -5.11322673e-01 -1.08227681e+00 -1.09009160e+00  1.42779332e-01
+  -8.47668012e-01 -1.63033863e+00 -7.08623133e-01 -1.51627347e-01
+   8.04471810e-01 -7.41070495e-01  4.14477301e-02 -9.23654393e-01
+   3.82506760e-01 -6.68751765e-01  5.75089230e-01 -3.46919349e-01
+  -9.32366728e-01 -4.66072385e-01  2.94459257e-02 -6.60810424e-01
+  -1.34422766e+00  1.32239712e+00  5.46457623e-01 -6.55921690e-01
+   8.82856840e-01 -1.91679677e-02 -1.80884337e+00  1.05039273e+00
+  -4.89720750e-01 -2.42253171e+00  1.00269840e+00 -1.77561402e+00
+   7.83182671e-01 -7.50732052e-01  3.27074757e-01  9.61989169e-02
+  -1.02071408e+00  4.12860148e-01  1.76064730e+00  4.79309473e-01
+   2.65078912e-01 -1.27090556e+00 -1.45683373e+00  2.24670916e-01
+   7.60766667e-01  5.71662951e-01 -7.19899941e-01 -4.31623357e-01
+   1.55893491e-01  4.33128266e-01 -2.92291409e-01  3.48007433e-02
+   9.24167701e-01 -2.33721287e+00 -6.44742949e-01  5.52876876e-01
+  -4.43336708e-01  1.48585567e-01  6.42278300e-01 -1.23929724e+00
+  -1.12626993e+00 -1.72770907e+00 -1.44394604e+00 -4.39310690e-01
+   9.24254193e-01  6.62715142e-01 -7.27807258e-01  8.76769634e-01
+  -2.37804361e-02  2.56585328e-01 -2.22958770e-01 -1.53706809e+00
+   1.43287637e+00 -5.27946865e-01 -3.71984142e-01 -1.59733471e+00
+   1.16597176e+00 -2.14013765e-01  5.62516520e-01  1.63315757e+00
+  -8.81974916e-01  2.29547476e+00 -1.10463786e+00 -8.71758842e-01
+   2.76729999e-02 -1.34268917e+00  9.27652053e-01 -1.13755815e+00
+   1.04726250e+00  9.54792420e-02 -4.65927036e-01 -1.94377387e+00
+  -1.09839600e-01  5.97760198e-01 -1.06030919e+00 -7.65868266e-01
+   2.96446875e-01 -1.16266946e+00  5.14664558e-01  7.65992260e-01
+  -2.46577103e-01  3.68036601e-01 -1.95399825e-01 -3.15404117e-01
+  -4.61865224e-01  6.51445347e-01 -1.53975466e-01 -2.83827370e+00
+   9.62693895e-01  8.30286729e-01  3.09449216e-01 -5.68664550e-01
+  -2.85355510e-01 -3.62326183e-01 -5.14037177e-01  2.65571482e-01
+   1.49689580e+00 -1.38047848e-01 -2.37374433e+00 -1.13052683e+00
+   2.64887058e-01  1.26743094e+00  8.33382769e-01  7.54181326e-01
+   9.48142583e-01 -8.42453365e-01  4.45997683e-01  1.01332184e+00
+   7.42989141e-01  2.22275187e+00 -6.15300594e-01 -1.13809142e+00
+  -5.40574778e-01 -4.94059651e-02 -1.43650864e+00 -2.97527562e+00
+  -4.22196441e-01  2.63236843e-01  1.02207996e+00  9.52276837e-01
+  -5.56048513e-01 -1.05262922e+00 -5.48018132e-01 -2.39782789e-01
+   1.77409924e+00  4.13043917e-01 -5.53197961e-01  3.76399536e-01
+  -9.30756165e-01  6.27748083e-02  4.15795792e-01  1.65230918e+00
+   6.45317508e-01 -5.46962761e-01  4.28491666e-01  3.02710547e-02
+  -1.15302991e+00  1.03761610e+00  8.97846490e-01 -1.12304655e-01
+  -7.86257482e-01 -2.66498957e-01 -2.83974795e-01 -2.22803530e+00
+  -9.52858883e-01  8.02632736e-01  1.20951651e-01 -2.22489158e+00
+   7.71724028e-01  1.60516684e+00 -5.34082054e-01  8.98975706e-01
+   7.92643033e-01 -1.57132680e+00  2.46272299e-01 -1.51617366e+00
+  -2.27863070e+00 -5.28439173e-01  1.52693442e+00  1.50984976e+00
+   5.55001564e-01  9.74717260e-01  7.37246359e-01 -8.58985623e-01
+  -5.75286865e-01 -5.47453961e-01 -3.61215466e-01 -4.98430026e-01
+   7.11624195e-01  4.92015704e-02  1.01967807e+00  7.23734194e-01
+   3.45351421e-01  9.63092106e-01 -1.58503293e+00 -7.52298479e-02
+  -1.13663938e-01  6.44125992e-01 -3.61812393e-01  1.35345256e+00
+   5.38796831e-01  1.49294182e+00 -4.14254996e-01  3.10036863e-01
+   1.41787000e+00 -1.82521037e-01 -6.75606194e-01 -1.03299293e+00
+  -7.56304119e-01 -1.83842205e-01 -1.26709154e+00  1.64139099e+00
+  -5.49349072e-01  5.50944323e-01 -1.17429215e+00  1.21306993e+00]]
+[[1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1.]]
+[[1 0 0 0]
+ [0 2 0 0]
+ [0 0 3 0]
+ [0 0 0 4]]
+
+    \end{Verbatim}
+
+    \paragraph{Combine arrays}\label{combine-arrays}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{arr1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arr2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} concat along the row}
+         \PY{n}{cat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}        
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} concat along the column}
+         \PY{n}{cat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} stack arrays vertically}
+         \PY{n}{cat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} stack arrays horizontally}
+         \PY{n}{cat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1 2 3 4]
+ [1 2 3 4]
+ [5 6 7 8]
+ [5 6 7 8]]
+[[1 2 3 4 5 6 7 8]
+ [1 2 3 4 5 6 7 8]]
+[[1 2 3 4]
+ [1 2 3 4]
+ [5 6 7 8]
+ [5 6 7 8]]
+[[1 2 3 4 5 6 7 8]
+ [1 2 3 4 5 6 7 8]]
+
+    \end{Verbatim}
+
+    \paragraph{Operations with arrays}\label{operations-with-arrays}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]} \PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(} \PY{l+m+mi}{4} \PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a\PYZhy{}b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b**2=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{b}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a\PYZgt{}20}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{a}\PY{o}{\PYZlt{}}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c= [20 29 38 47]
+b**2= [0 1 4 9]
+sin= [ 9.12945251 -9.88031624  7.4511316  -2.62374854]
+[False False False False]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Maths operators}
+         
+         \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{sin}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{sin}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{ones}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{ones}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 7.07106781e-01  1.00000000e+00  7.07106781e-01  1.22464680e-16
+ -7.07106781e-01 -1.00000000e+00 -7.07106781e-01 -2.44929360e-16
+  7.07106781e-01  1.00000000e+00  7.07106781e-01  3.67394040e-16
+ -7.07106781e-01 -1.00000000e+00 -7.07106781e-01 -4.89858720e-16
+  7.07106781e-01  1.00000000e+00  7.07106781e-01]
+[0.         0.69314718 1.09861229 1.38629436 1.60943791 1.79175947
+ 1.94591015 2.07944154 2.19722458 2.30258509 2.39789527 2.48490665
+ 2.56494936 2.63905733 2.7080502  2.77258872 2.83321334 2.89037176
+ 2.94443898]
+[4. 4. 4. 4.]
+[1. 1. 1. 1.]
+
+    \end{Verbatim}
+
+    \textbf{Plotting a function}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{sin}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sin(1/4*pi*x)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sin function}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{sin}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{sin}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} Elementwise minimum and maximum}
+         \PY{n}{arr1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arr2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{minimum}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.0
+-1.0
+[1 4 5 8 9]
+[0 3 3 7 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Statistical functions}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{randn}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{randn}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{randn}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.043090249065763205
+0.08808464969157555
+1.0543330288666193
+
+    \end{Verbatim}
+
+    \textbf{Plotting a distribution}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{randn}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{randn}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Excercise 1:}\label{excercise-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Create a 5 (channels) x 100 (samples) matrix of random integers and
+  retrieve the following informations:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the max, min, mean of all samples.
+  \item
+    the mean and variance of each subject
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Simulate the recording of a machine that records 1000 samples from 10
+  channels: at each step the full vector of channels is saved
+\end{itemize}
+
+    \paragraph{Linear Algebra,
+numpy.linalg}\label{linear-algebra-numpy.linalg}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{arr1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{arr2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr1}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0.57929797 0.77066885 0.41069532 0.21899777 0.23669324]
+ [0.13405738 0.13150794 0.71811261 0.88932401 0.66254445]
+ [0.86146449 0.56652707 0.84745175 0.00558003 0.67744262]
+ [0.29532263 0.85019024 0.26179061 0.96637965 0.93259977]
+ [0.24690435 0.17806846 0.67416308 0.75155757 0.46091011]]
+[[0.57929797 0.13405738 0.86146449 0.29532263 0.24690435]
+ [0.77066885 0.13150794 0.56652707 0.85019024 0.17806846]
+ [0.41069532 0.71811261 0.84745175 0.26179061 0.67416308]
+ [0.21899777 0.88932401 0.00558003 0.96637965 0.75155757]
+ [0.23669324 0.66254445 0.67744262 0.93259977 0.46091011]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr1}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} or}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{arr1}\PY{p}{,} \PY{n}{arr2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1.40776996 1.2922666  0.86947446 1.05508059 1.50969503]
+ [1.37500901 1.62243371 0.3502072  1.8092951  1.59344383]
+ [1.73380894 1.68878522 1.07835332 1.2880074  1.90193473]
+ [2.30995102 2.28218304 0.73463001 2.335787   2.39203198]
+ [1.22511138 1.39120233 0.43111155 1.52125849 1.45427632]]
+[[1.40776996 1.2922666  0.86947446 1.05508059 1.50969503]
+ [1.37500901 1.62243371 0.3502072  1.8092951  1.59344383]
+ [1.73380894 1.68878522 1.07835332 1.2880074  1.90193473]
+ [2.30995102 2.28218304 0.73463001 2.335787   2.39203198]
+ [1.22511138 1.39120233 0.43111155 1.52125849 1.45427632]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} notice this is not a function in linalg!!!}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{trace}\PY{p}{(}\PY{n}{arr1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{arr1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.985547420467123
+-0.027189020682555253
+
+    \end{Verbatim}
+
+    \subsubsection{Excercise 2:}\label{excercise-2}
+
+Given A, B, C compute the eigenvalues of D
+
+D = ( A + B ) C-1
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{A}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{B}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{C}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Scipy}\label{scipy}
+
+    As you have seen during the lecture, the scipy package is a package for
+high-level scientific computing. Its different submodules correspond to
+different applications, such as interpolation, integration,
+optimization, image processing, statistics, special functions, etc.
+
+We are going to take a look at some of its features, but
+
+    \subsection{Pandas}\label{pandas}
+
+    \subsection{Seaborn}\label{seaborn}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
